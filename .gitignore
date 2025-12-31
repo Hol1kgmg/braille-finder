@@ -1,0 +1,16 @@
+# Template Settings
+
+result
+.direnv
+
+## Claude Code - プロジェクト設定以外を無視
+.claude/*
+!.claude/settings.json
+
+### macOS ###
+## General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Unique Settings
