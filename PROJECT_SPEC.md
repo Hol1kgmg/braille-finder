@@ -8,38 +8,59 @@
 ## 技術仕様
 
 ### 技術スタック
-- **Vite + React + Tailwind CSS**
+- **Next.js 16 (App Router) + React 19 + Tailwind CSS v4**
 - フロントエンドのみで完結（完全静的サイト）
 - デプロイ先：**Cloudflare Pages**（運用コスト$0）
 
 ### 開発環境
 **バージョン管理：**
-- **mise** を使用してNode.jsバージョンを管理
+- **mise** を使用して開発ツールのバージョンを管理
 - `.mise.toml` でプロジェクトの必要なツールバージョンを定義
+
+**管理対象ツール：**
+- Node.js 20
+- oxlint（高速リンター）
 
 **セットアップ手順：**
 ```bash
-# miseでNode.jsをインストール
+# miseで開発ツール（Node.js, oxlint）をインストール
 mise install
 
-# appディレクトリに移動
-cd app
+# frontendディレクトリに移動
+cd frontend
 
 # 依存関係をインストール
 npm install
 
-# 開発サーバー起動
+# 開発サーバー起動（http://localhost:3000）
 npm run dev
 ```
 
+**開発コマンド：**
+```bash
+# リント実行
+npm run lint
+
+# リント自動修正
+npm run lint:fix
+
+# 本番ビルド
+npm run build
+
+# 本番サーバー起動
+npm run start
+```
+
 **必要なファイル：**
-- `.mise.toml` - Node.jsバージョン指定
+- `.mise.toml` - Node.jsとoxlintのバージョン指定
+- `frontend/.oxlintrc.json` - oxlintの設定ファイル
 
 ### デプロイ方法
 ```bash
-cd app
+cd frontend
 npm run build
-# Cloudflare Pagesにapp/distフォルダをデプロイ
+# Cloudflare Pagesにfrontend/outフォルダをデプロイ
+# （Next.jsの静的エクスポート機能を使用）
 ```
 
 ---
@@ -90,20 +111,20 @@ npm run build
 ## ファイル構成
 ```
 braille-finder/
-├── .mise.toml              # Node.jsバージョン管理
+├── .mise.toml                  # 開発ツールバージョン管理（Node.js, oxlint）
 ├── .gitignore
-├── PROJECT_SPEC.md         # プロジェクト仕様書
-├── CLAUDE.md              # Claude Code設定
-└── app/                   # Webアプリケーション
+├── PROJECT_SPEC.md             # プロジェクト仕様書
+├── CLAUDE.md                   # Claude Code設定
+├── README.md                   # プロジェクトREADME
+└── frontend/                   # Webアプリケーション
+    ├── .oxlintrc.json         # oxlint設定
     ├── package.json
     ├── tsconfig.json
-    ├── vite.config.js
-    ├── postcss.config.js
-    ├── index.html
-    ├── src/
-    │   ├── main.tsx       # エントリーポイント
-    │   ├── App.tsx        # メインコンポーネント
-    │   └── index.css      # Tailwind CSS
+    ├── next.config.ts         # Next.js設定
+    ├── app/
+    │   ├── layout.tsx        # ルートレイアウト
+    │   ├── page.tsx          # メインページ
+    │   └── globals.css       # グローバルスタイル（Tailwind CSS）
     └── node_modules/
 ```
 
@@ -112,8 +133,9 @@ braille-finder/
 ## デプロイ仕様
 - **プラットフォーム：** Cloudflare Pages
 - **ビルド設定：**
-  - ビルドコマンド：`cd app && npm install && npm run build`
-  - 出力ディレクトリ：`app/dist`
+  - ビルドコマンド：`cd frontend && npm install && npm run build`
+  - 出力ディレクトリ：`frontend/out`
+  - フレームワーク：Next.js (Static Export)
 - **運用コスト：** $0（無料枠内）
 - **URL：** `*.pages.dev`（カスタムドメイン設定可能）
 
