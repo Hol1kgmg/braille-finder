@@ -1,3 +1,3 @@
 export const BrailleTable = () => {
-  return <div></div>;
+  return <div>table</div>;
 };

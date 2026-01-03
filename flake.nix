@@ -43,13 +43,16 @@
             # [カスタマイズ] プロジェクトで必要な開発ツールを追加
             packages = with pkgs; [
               git
-              nodejs_20
+              nodejs_24
+              oxfmt
               oxlint
               typescript
               typescript-language-server
             ];
             shellHook = ''
               ${config.pre-commit.installationScript}
+
+              alias e="exit"
             '';
           };
           pre-commit = {
