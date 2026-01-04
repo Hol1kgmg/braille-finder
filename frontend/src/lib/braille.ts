@@ -11,20 +11,20 @@ import { createBitPosition, createBrailleUnicode, createBinaryPattern } from "./
  * bit 0 (値1):   点1
  * bit 1 (値2):   点2
  * bit 2 (値4):   点3
- * bit 3 (値8):   点7
- * bit 4 (値16):  点4
- * bit 5 (値32):  点5
- * bit 6 (値64):  点6
+ * bit 3 (値8):   点4
+ * bit 4 (値16):  点5
+ * bit 5 (値32):  点6
+ * bit 6 (値64):  点7
  * bit 7 (値128): 点8
  */
 const BIT_TO_DOT_MAP = {
   [createBitPosition(0)]: 1,
   [createBitPosition(1)]: 2,
   [createBitPosition(2)]: 3,
-  [createBitPosition(3)]: 7,
-  [createBitPosition(4)]: 4,
-  [createBitPosition(5)]: 5,
-  [createBitPosition(6)]: 6,
+  [createBitPosition(3)]: 4,
+  [createBitPosition(4)]: 5,
+  [createBitPosition(5)]: 6,
+  [createBitPosition(6)]: 7,
   [createBitPosition(7)]: 8,
 } as const satisfies BitToDotMap;
 

@@ -1,4 +1,4 @@
-import { TypographyH1, TypographyP } from "../ui/typography";
+import { TypographyH1, TypographyLead, TypographyP } from "../ui/typography";
 import { BrailleTable } from "./BrailleTable";
 
 export const BraillePage = () => {
@@ -7,6 +7,9 @@ export const BraillePage = () => {
       <div className="flex flex-col mb-6 p-4">
         <TypographyH1>点字一覧表</TypographyH1>
         <TypographyP>全256個の点字文字（U+2800 〜 U+28FF）</TypographyP>
+        <TypographyLead className="text-sm">
+          点字セルをクリックすると文字をクリップボードにコピーできます
+        </TypographyLead>
       </div>
       <BrailleTable />
     </div>

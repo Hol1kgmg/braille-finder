@@ -10,12 +10,14 @@ import type { BrailleCharacter, DotNumber, MatchResult } from "./braille";
  * 個別の点字セルを表示するコンポーネント
  */
 export type BrailleCellProps = {
+  /** 点字文字 */
+  readonly char: string;
   /** 表示する点の番号配列 */
   readonly dots: readonly DotNumber[];
-  /** 選択状態 */
-  readonly isSelected: boolean;
-  /** クリック時のハンドラー */
-  readonly onClickAction: () => void;
+  /** 選択状態（オプション） */
+  readonly isSelected?: boolean;
+  /** クリック時のハンドラー（オプション） */
+  readonly onClickAction?: () => void;
 };
 
 /**

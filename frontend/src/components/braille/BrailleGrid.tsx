@@ -27,12 +27,7 @@ export const BrailleGrid = ({
         }}
       >
         {data.map((brailleChar) => (
-          <BrailleCell
-            key={brailleChar.unicode}
-            dots={brailleChar.dots}
-            isSelected={false}
-            onClickAction={() => {}}
-          />
+          <BrailleCell key={brailleChar.unicode} char={brailleChar.char} dots={brailleChar.dots} />
         ))}
       </div>
     </div>

@@ -6,6 +6,7 @@
  */
 
 import type { BrailleCellProps, DotNumber } from "@/types";
+import { toast } from "sonner";
 
 /**
  * 点字の標準配置
@@ -18,11 +19,23 @@ import type { BrailleCellProps, DotNumber } from "@/types";
  */
 const DOT_POSITIONS: readonly DotNumber[] = [1, 4, 2, 5, 3, 6, 7, 8];
 
-export const BrailleCell = ({ dots, isSelected: _isSelected, onClickAction }: BrailleCellProps) => {
+export const BrailleCell = ({ char, dots }: BrailleCellProps) => {
+  const handleClick = async (): Promise<void> => {
+    try {
+      await navigator.clipboard.writeText(char);
+      toast.success("コピーしました", {
+        description: <span className="text-3xl font-bold">{char}</span>,
+      });
+    } catch (error) {
+      console.error("Failed to copy to clipboard:", error);
+      toast.error("コピーに失敗しました");
+    }
+  };
+
   return (
     <div
-      onClick={onClickAction}
-      className="flex flex-col items-center justify-center gap-1 rounded border border-braille-cell-border bg-braille-cell-bg p-2 transition-colors hover:border-braille-cell-hover-border hover:bg-braille-cell-hover-bg"
+      onClick={handleClick}
+      className="flex flex-col items-center justify-center gap-1 rounded border border-braille-cell-border bg-braille-cell-bg p-2 transition-colors hover:border-braille-cell-hover-border hover:bg-braille-cell-hover-bg cursor-pointer"
     >
       {/* ドットパターン表示 (2列×4行) */}
       <div className="grid grid-cols-2 gap-0.5">
