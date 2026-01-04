@@ -51,6 +51,18 @@ const config: Config = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        braille: {
+          cell: {
+            bg: "hsl(var(--braille-cell-bg))",
+            border: "hsl(var(--braille-cell-border))",
+            "hover-bg": "hsl(var(--braille-cell-hover-bg))",
+            "hover-border": "hsl(var(--braille-cell-hover-border))",
+          },
+          dot: {
+            on: "hsl(var(--braille-dot-on))",
+            off: "hsl(var(--braille-dot-off))",
+          },
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
