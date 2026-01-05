@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://braille-finder.hol1kgmg.com/sitemap.xml

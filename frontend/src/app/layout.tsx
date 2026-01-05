@@ -14,8 +14,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://braille-finder.hol1kgmg.com"),
   title: "Braille Finder",
-  description: "Visual braille Unicode search tool with 256-character pattern matching",
+  description: "256パターンの点字をビジュアル検索できるUnicode点字検索ツール",
+  keywords: ["点字", "braille", "Unicode", "検索", "アクセシビリティ", "視覚的検索"],
+  authors: [{ name: "Hol1kgmg" }],
+  creator: "Hol1kgmg",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -23,8 +35,30 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Braille Finder",
+    description: "256パターンの点字をビジュアル検索できるUnicode点字検索ツール",
+    url: "https://braille-finder.hol1kgmg.com",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Any",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "JPY",
+    },
+    inLanguage: "ja",
+  };
+
   return (
-    <html lang="en">
+    <html lang="ja">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
         <Toaster />
