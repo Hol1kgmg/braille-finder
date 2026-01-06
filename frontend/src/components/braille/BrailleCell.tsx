@@ -18,11 +18,11 @@ import { DOT_POSITIONS } from "@/lib/braille-constants";
 const getMatchClassName = (matchResult: MatchResult): string => {
   switch (matchResult) {
     case "exact":
-      return "bg-green-100 border-green-400 dark:bg-green-950 dark:border-green-700";
+      return "bg-braille-match-exact-bg border-braille-match-exact-border";
     case "match":
       return "bg-braille-cell-bg border-braille-cell-border";
     case "none":
-      return "bg-gray-100 border-gray-300 opacity-40 dark:bg-gray-900 dark:border-gray-700";
+      return "bg-braille-match-none-bg border-braille-match-none-border opacity-40";
     default: {
       matchResult satisfies never;
       throw new Error(`Unsupported match result: ${String(matchResult)}`);

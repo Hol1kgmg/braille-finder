@@ -62,6 +62,12 @@ const config: Config = {
             on: "hsl(var(--braille-dot-on))",
             off: "hsl(var(--braille-dot-off))",
           },
+          match: {
+            "exact-bg": "hsl(var(--braille-match-exact-bg))",
+            "exact-border": "hsl(var(--braille-match-exact-border))",
+            "none-bg": "hsl(var(--braille-match-none-bg))",
+            "none-border": "hsl(var(--braille-match-none-border))",
+          },
         },
       },
       borderRadius: {

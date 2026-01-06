@@ -40,6 +40,11 @@
     --braille-cell-hover-border: 221 83% 63%;
     --braille-dot-on: 221 83% 53%;
     --braille-dot-off: 0 0% 90%;
+    /* マッチ結果用カラー */
+    --braille-match-exact-bg: 134 61% 90%;
+    --braille-match-exact-border: 134 61% 60%;
+    --braille-match-none-bg: 0 0% 82%;
+    --braille-match-none-border: 0 0% 73%;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -75,6 +80,11 @@
       --braille-cell-hover-border: 221 83% 70%;
       --braille-dot-on: 221 83% 70%;
       --braille-dot-off: 0 0% 30%;
+      /* マッチ結果用カラー（ダークモード） */
+      --braille-match-exact-bg: 134 30% 15%;
+      --braille-match-exact-border: 134 40% 40%;
+      --braille-match-none-bg: 0 0% 12%;
+      --braille-match-none-border: 0 0% 20%;
     }
   }
 }
