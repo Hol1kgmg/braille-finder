@@ -15,4 +15,7 @@ export type {
 } from "./braille";
 
 // コンポーネントProps型
-export type { BrailleCellProps, BrailleGridProps, BrailleTableProps } from "./components";
+export type { BrailleCellProps, BrailleGridProps, BraillePatternSelectorProps } from "./components";
+
+// Atom関連の型
+export type { FilteredBrailleCharacter } from "./atoms";

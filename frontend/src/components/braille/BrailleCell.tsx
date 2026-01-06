@@ -5,22 +5,32 @@
  * 個別の点字文字とそのドットパターンを表示
  */
 
-import type { BrailleCellProps, DotNumber } from "@/types";
+import type { BrailleCellProps, MatchResult } from "@/types";
 import { Result } from "@praha/byethrow";
 import { toast } from "sonner";
+import { DOT_POSITIONS } from "@/lib/braille-constants";
 
 /**
- * 点字の標準配置
- * 1 4
- * 2 5
- * 3 6
- * 7 8
- *
- * 配列順: 左上から左下 (1,2,3,7)、次に右上から右下 (4,5,6,8)
+ * MatchResultに応じたクラス名を取得
+ * @param matchResult - マッチ結果
+ * @returns Tailwind CSSクラス名
  */
-const DOT_POSITIONS: readonly DotNumber[] = [1, 4, 2, 5, 3, 6, 7, 8];
+const getMatchClassName = (matchResult: MatchResult): string => {
+  switch (matchResult) {
+    case "exact":
+      return "bg-green-100 border-green-400 dark:bg-green-950 dark:border-green-700";
+    case "match":
+      return "bg-braille-cell-bg border-braille-cell-border";
+    case "none":
+      return "bg-gray-100 border-gray-300 opacity-40 dark:bg-gray-900 dark:border-gray-700";
+    default: {
+      matchResult satisfies never;
+      throw new Error(`Unsupported match result: ${String(matchResult)}`);
+    }
+  }
+};
 
-export const BrailleCell = ({ char, dots }: BrailleCellProps) => {
+export const BrailleCell = ({ char, dots, matchResult = "match" }: BrailleCellProps) => {
   const handleClick = async (): Promise<void> => {
     const result = await Result.try({
       immediate: true,
@@ -38,10 +48,12 @@ export const BrailleCell = ({ char, dots }: BrailleCellProps) => {
     }
   };
 
+  const matchClassName = getMatchClassName(matchResult);
+
   return (
     <div
       onClick={handleClick}
-      className="flex flex-col items-center justify-center gap-1 rounded border border-braille-cell-border bg-braille-cell-bg p-2 transition-colors hover:border-braille-cell-hover-border hover:bg-braille-cell-hover-bg cursor-pointer"
+      className={`flex flex-col items-center justify-center gap-1 rounded border p-2 transition-colors hover:border-braille-cell-hover-border hover:bg-braille-cell-hover-bg cursor-pointer ${matchClassName}`}
     >
       {/* ドットパターン表示 (2列×4行) */}
       <div className="grid grid-cols-2 gap-0.5">

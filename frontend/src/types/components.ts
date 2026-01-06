@@ -3,7 +3,7 @@
  * 各Reactコンポーネントの型安全なProps定義
  */
 
-import type { BrailleCharacter, DotNumber, MatchResult } from "./braille";
+import type { DotNumber, MatchResult, FilteredBrailleCharacter } from "./";
 
 /**
  * BrailleCellコンポーネントのProps
@@ -14,10 +14,8 @@ export type BrailleCellProps = {
   readonly char: string;
   /** 表示する点の番号配列 */
   readonly dots: readonly DotNumber[];
-  /** 選択状態（オプション） */
-  readonly isSelected?: boolean;
-  /** クリック時のハンドラー（オプション） */
-  readonly onClickAction?: () => void;
+  /** マッチ結果（フィルタリング時） */
+  readonly matchResult?: MatchResult;
 };
 
 /**
@@ -25,19 +23,19 @@ export type BrailleCellProps = {
  * 点字グリッドを表示するコンポーネント
  */
 export type BrailleGridProps = {
-  /** 表示する点字文字データの配列 */
-  readonly data: readonly BrailleCharacter[];
-  /** 現在選択されている点の配列 */
-  readonly selectedDots: readonly DotNumber[];
-  /** 点がトグルされた時のハンドラー */
-  readonly onDotToggleAction: (dot: DotNumber) => void;
+  /** 表示する点字文字データの配列（フィルタリング済み） */
+  readonly data: readonly FilteredBrailleCharacter[];
 };
 
 /**
- * BrailleTableコンポーネントのProps
- * 点字テーブル全体を管理するコンポーネント
+ * BraillePatternSelectorコンポーネントのProps
+ * 検索パターン選択UI
  */
-export type BrailleTableProps = {
-  /** フィルタリングモード（オプション） */
-  readonly filterMode?: MatchResult;
+export type BraillePatternSelectorProps = {
+  /** 現在選択されている点の配列 */
+  readonly selectedDots: readonly DotNumber[];
+  /** 点がクリックされた時のハンドラー */
+  readonly onDotClickAction: (dot: DotNumber) => void;
+  /** 選択クリアボタンのハンドラー */
+  readonly onClearAction: () => void;
 };

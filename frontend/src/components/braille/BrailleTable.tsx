@@ -5,16 +5,15 @@
  * 全256個の点字文字を16×16グリッドで表示
  */
 
-import type { BrailleTableProps } from "@/types";
-import { generateBrailleData } from "@/lib/braille";
 import { BrailleGrid } from "./BrailleGrid";
+import { useBrailleFilter } from "@/hooks/useBrailleFilter";
 
-export const BrailleTable = ({ filterMode: _filterMode }: BrailleTableProps) => {
-  const brailleData = generateBrailleData();
+export const BrailleTable = () => {
+  const { filteredData } = useBrailleFilter();
 
   return (
     <div className="flex flex-col items-start p-4">
-      <BrailleGrid data={brailleData} selectedDots={[]} onDotToggleAction={() => {}} />
+      <BrailleGrid data={filteredData} />
     </div>
   );
 };

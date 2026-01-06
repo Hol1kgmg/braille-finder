@@ -8,11 +8,7 @@
 import type { BrailleGridProps } from "@/types";
 import { BrailleCell } from "./BrailleCell";
 
-export const BrailleGrid = ({
-  data,
-  selectedDots: _selectedDots,
-  onDotToggleAction: _onDotToggleAction,
-}: BrailleGridProps) => {
+export const BrailleGrid = ({ data }: BrailleGridProps) => {
   return (
     <div
       style={{
@@ -27,7 +23,12 @@ export const BrailleGrid = ({
         }}
       >
         {data.map((brailleChar) => (
-          <BrailleCell key={brailleChar.unicode} char={brailleChar.char} dots={brailleChar.dots} />
+          <BrailleCell
+            key={brailleChar.unicode}
+            char={brailleChar.char}
+            dots={brailleChar.dots}
+            matchResult={brailleChar.matchResult}
+          />
         ))}
       </div>
     </div>
