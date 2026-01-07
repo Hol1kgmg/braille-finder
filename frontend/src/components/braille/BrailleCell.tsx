@@ -6,9 +6,8 @@
  */
 
 import type { BrailleCellProps, MatchResult } from "@/types";
-import { Result } from "@praha/byethrow";
-import { toast } from "sonner";
 import { DOT_POSITIONS } from "@/lib/braille-constants";
+import { copyBrailleToClipboard } from "@/lib/clipboard";
 
 /**
  * MatchResultに応じたクラス名を取得
@@ -32,20 +31,7 @@ const getMatchClassName = (matchResult: MatchResult): string => {
 
 export const BrailleCell = ({ char, dots, matchResult = "match" }: BrailleCellProps) => {
   const handleClick = async (): Promise<void> => {
-    const result = await Result.try({
-      immediate: true,
-      try: () => navigator.clipboard.writeText(char),
-      catch: (error) => new Error("Failed to copy to clipboard", { cause: error }),
-    });
-
-    if (Result.isSuccess(result)) {
-      toast.success("コピーしました", {
-        description: <span className="text-3xl font-bold">{char}</span>,
-      });
-    } else {
-      console.error("Failed to copy to clipboard:", result.error);
-      toast.error("コピーに失敗しました");
-    }
+    await copyBrailleToClipboard(char);
   };
 
   const matchClassName = getMatchClassName(matchResult);

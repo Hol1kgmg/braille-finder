@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import type { DotNumber } from "@/types";
 import { Kbd } from "@/components/ui/kbd";
 import { DOT_POSITIONS } from "@/lib/braille-constants";
+import { Button } from "../ui/button";
 
 export type BraillePatternSelectorProps = {
   /** 現在選択されている点の配列 */
@@ -43,10 +44,14 @@ export const BraillePatternSelector = ({
       <div className="flex items-center justify-center gap-2 w-full">
         <h2 className="text-lg font-semibold">検索フォーム</h2>
       </div>
-      <div className="flex items-center gap-1 text-sm text-muted-foreground">
+      <Button
+        onClick={() => onClearAction()}
+        variant="ghost"
+        className="flex items-center gap-1 text-sm text-muted-foreground"
+      >
         <Kbd>Backspace</Kbd>/<Kbd>⌫</Kbd>
         <span>でクリア</span>
-      </div>
+      </Button>
 
       {/* 2×4 ドットグリッド */}
       <div className="grid grid-cols-2 gap-1 w-fit">

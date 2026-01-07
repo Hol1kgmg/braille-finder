@@ -5,9 +5,14 @@ import { BrailleTable } from "./BrailleTable";
 import { BraillePatternSelector } from "./BraillePatternSelector";
 import { ScrollToButton } from "../ui/scroll-to-button";
 import { useBrailleFilter } from "@/hooks/useBrailleFilter";
+import { useCopyExactMatch } from "@/hooks/useCopyExactMatch";
+import { Kbd } from "../ui/kbd";
 
 export const BraillePage = () => {
   const { selectedDots, toggleDot, clearSelection } = useBrailleFilter();
+
+  // キーボードショートカット (Cmd+C / Ctrl+C) を有効化
+  useCopyExactMatch();
 
   return (
     <>
@@ -17,7 +22,8 @@ export const BraillePage = () => {
           <TypographyH2 className="font-semibold">点字テキスト検索フォーム</TypographyH2>
           <TypographyP>全256個の点字文字をビジュアル検索（U+2800 〜 U+28FF）</TypographyP>
           <TypographyLead className="text-sm">
-            点字セルをクリックすると文字をクリップボードにコピーできます
+            点字セルをクリック、または検索中に<Kbd>cmd + c</Kbd>や<Kbd>ctrl + c</Kbd>
+            をすると、対象の文字をクリップボードにコピーできます
           </TypographyLead>
         </div>
 

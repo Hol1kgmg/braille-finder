@@ -51,3 +51,12 @@ export const filteredBrailleAtom = atom((get): readonly FilteredBrailleCharacter
     matchResult: matchPattern(char.dots, selectedDots),
   }));
 });
+
+/**
+ * 完全一致の点字文字を取得する派生atom
+ * filteredBrailleAtomの変更に応じて自動的に再計算される
+ */
+export const exactMatchCharacterAtom = atom((get): FilteredBrailleCharacter | undefined => {
+  const filteredData = get(filteredBrailleAtom);
+  return filteredData.find((char) => char.matchResult === "exact");
+});
