@@ -1,0 +1,23 @@
+pre-commit:
+  parallel: true
+  commands:
+    gitleaks:
+      run: mise x -- gitleaks git --staged --redact --verbose --no-banner
+
+    lint-code:
+      root: frontend
+      glob: '*.{js,ts,jsx,tsx}'
+      run: mise x -- pnpm oxlint --type-aware --type-check --fix {staged_files} && mise x -- pnpm eslint --fix {staged_files}
+      stage_fixed: true
+
+    lint-markup:
+      root: frontend
+      glob: '*.{html,jsx,tsx}'
+      run: mise x -- pnpm markuplint {staged_files} --fix --problem-only
+      stage_fixed: true
+
+    format:
+      root: frontend
+      glob: '*.{js,ts,jsx,tsx,json,yml,yaml,md}'
+      run: mise x -- pnpm oxfmt --no-error-on-unmatched-pattern {staged_files}
+      stage_fixed: true

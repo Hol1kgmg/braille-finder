@@ -4,16 +4,17 @@ Visual braille Unicode search tool with 256-character pattern matching
 
 ## Prerequisites
 
-- [Nix](https://nixos.org/) - Reproducible development environment management
+- [mise](https://mise.jdx.dev/) - Polyglot tool version manager
 
   ```bash
-  # Install Nix (if not already installed)
-  # macOS / Linux
-  sh <(curl -L https://nixos.org/nix/install)
+  # Install mise (macOS)
+  brew install mise
 
-  # Enable flakes (if not already enabled)
-  mkdir -p ~/.config/nix
-  echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+  # Or using curl
+  curl https://mise.run | sh
+
+  # Activate mise in your shell
+  echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
   ```
 
 ## Setup
@@ -23,68 +24,74 @@ Visual braille Unicode search tool with 256-character pattern matching
 git clone https://github.com/Hol1kgmg/braille-finder.git
 cd braille-finder
 
-# Enter Nix development environment (installs all tools automatically)
-nix develop
+# Install tools (Node.js 24, pnpm, gitleaks)
+mise install
 
 # Install dependencies
 cd frontend
-npm install
+pnpm install
+
+# Install git hooks
+pnpm lefthook install
 
 # Start development server
-npm run dev
+pnpm dev
 ```
 
 The app will be available at http://localhost:3000/
 
 ## Development
 
-### Development Environment
-
-```bash
-# Enter development environment (includes Node.js 20, oxlint, TypeScript, etc.)
-nix develop
-
-# After first setup, just use this command before starting work
-nix develop
-```
-
-### Linting
+### Scripts
 
 ```bash
 cd frontend
 
-# Run linter
-oxlint
+# Development server
+pnpm dev
 
-# Auto-fix issues
-oxlint --fix
+# Build for production
+pnpm build
+
+# Linting
+pnpm lint          # Run all linters
+pnpm lint:code     # oxlint + eslint
+pnpm lint:markup   # markuplint
+
+# Formatting
+pnpm format        # Format with oxfmt
+pnpm format:check  # Check formatting
+
+# Run all checks
+pnpm check
 ```
 
 ### Pre-commit Hooks
 
-This project uses automated pre-commit hooks for code quality:
+This project uses [lefthook](https://lefthook.dev/) for automated pre-commit hooks:
 
-- **nil** - Nix file linting
+- **oxfmt** - Code formatting
 - **oxlint** - JavaScript/TypeScript linting
-- **treefmt** - Auto-formatting (nixfmt, prettier)
+- **gitleaks** - Secret detection
 
-Hooks are automatically installed when you run `nix develop`.
+Hooks are installed via `pnpm lefthook install`.
 
-### Tools managed by Nix
+### Tools managed by mise
 
-- **Node.js 20** - JavaScript runtime
-- **oxlint** - Fast JavaScript/TypeScript linter
-- **TypeScript** - Type checking
-- **Git** - Version control
+- **Node.js 24** - JavaScript runtime
+- **pnpm** - Package manager
+- **gitleaks** - Secret detection
 
 ### Project Structure
 
 ```
 frontend/
 ├── src/
-│   └── app/          # Next.js App Router
-│       ├── layout.tsx
-│       ├── page.tsx
-│       └── globals.css
+│   ├── app/          # Next.js App Router
+│   ├── atoms/        # Jotai state management
+│   ├── components/   # React components
+│   ├── hooks/        # Custom hooks
+│   ├── lib/          # Utilities
+│   └── types/        # TypeScript types
 └── public/           # Static assets
 ```

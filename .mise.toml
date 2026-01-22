@@ -1,0 +1,5 @@
+[tools]
+# frontend
+pnpm = "latest"
+node = "24"
+gitleaks = "latest"
